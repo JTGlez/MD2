@@ -41,7 +41,7 @@ def md2(message):
             c = mensaje_bytes[tamaño_bloque * i + j]
             checksum[j] = (checksum[j]) ^ (S[c ^ L])
             L = checksum[j]
-        mensaje_bytes += checksum
+    mensaje_bytes += checksum
 
     # Paso 3: Inicializar el buffer
     tamaño_buffer = 48
