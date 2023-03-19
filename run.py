@@ -48,7 +48,7 @@ def md2(message):
     X = bytearray([0 for _ in range(tamaño_buffer)])
     n_rondas = 18
 
-    # Step 4: Process message in 16-byte blocks
+    # Step 4: Process message in 16-byte blockss
     for i in range(len(mensaje_bytes) // tamaño_bloque):
         for j in range(tamaño_bloque):
             X[tamaño_bloque + j] = mensaje_bytes[i * tamaño_bloque + j]
