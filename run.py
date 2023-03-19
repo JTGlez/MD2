@@ -36,7 +36,7 @@ def md2(message):
     L = 0
     checksum = bytearray(0 for _ in range(tamaño_bloque)) #Clear
     
-    for i in range(len(mensaje_bytes) / tamaño_bloque):
+    for i in range(len(mensaje_bytes) // tamaño_bloque):
         for j in range(tamaño_bloque):
             c = mensaje_bytes[tamaño_bloque * i + j]
             checksum[j] = (checksum[j]) ^ (S[c ^ L])
@@ -49,7 +49,7 @@ def md2(message):
     n_rondas = 18
 
     # Step 4: Process message in 16-byte blocks
-    for i in range(len(mensaje_bytes) / tamaño_bloque):
+    for i in range(len(mensaje_bytes) // tamaño_bloque):
         for j in range(tamaño_bloque):
             X[tamaño_bloque + j] = mensaje_bytes[tamaño_bloque * i  + j]
             X[2 * tamaño_bloque + j] = X[tamaño_bloque + j] ^ X[j]
