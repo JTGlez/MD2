@@ -1,7 +1,6 @@
 import binascii
 import fileinput as fp
 
-
 S = [ 
  41, 46, 67, 201, 162, 216, 124, 1, 61, 54, 84, 161, 236, 240, 6,
  19, 98, 167, 5, 243, 192, 199, 115, 140, 152, 147, 43, 217, 188,
@@ -69,6 +68,5 @@ for entrada in fp.input():
     inputs.append(entrada.strip())
 
 mensaje = ''.join(inputs)
-print(mensaje)
 
 print(md2(mensaje))
