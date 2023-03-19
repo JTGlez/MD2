@@ -19,7 +19,7 @@ S = [
  8, 12, 189, 177, 74, 120, 136, 149, 139, 227, 99, 232, 109, 233,
  203, 213, 254, 59, 0, 29, 57, 242, 239, 183, 14, 102, 88, 208, 228,
  166, 119, 114, 248, 235, 117, 75, 10, 49, 68, 80, 180, 143, 237,
- 31, 26, 219, 153, 141, 51, 159, 17, 131, 20 ];
+ 31, 26, 219, 153, 141, 51, 159, 17, 131, 20];
 
 import binascii
 
@@ -39,7 +39,7 @@ def md2(message):
     for i in range(len(mensaje_bytes) // tamaño_bloque):
         for j in range(tamaño_bloque):
             c = mensaje_bytes[i * tamaño_bloque + j]
-            checksum[j] = S[c ^ L]
+            checksum[j] = checksum[j] ^ (S[c ^ L])
             L = checksum[j]
         mensaje_bytes += checksum
 
