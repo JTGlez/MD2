@@ -36,10 +36,10 @@ def md2(message):
     L = 0
     checksum = bytearray(0 for _ in range(tamaño_bloque)) #Clear
     
-    for i in range(len(mensaje_bytes) // tamaño_bloque):
+    for i in range(len(mensaje_bytes) / tamaño_bloque):
         for j in range(tamaño_bloque):
-            c = mensaje_bytes[i * tamaño_bloque + j]
-            checksum[j] = checksum[j] ^ (S[c ^ L])
+            c = mensaje_bytes[tamaño_bloque * i + j]
+            checksum[j] = (checksum[j]) ^ (S[c ^ L])
             L = checksum[j]
         mensaje_bytes += checksum
 
@@ -49,14 +49,15 @@ def md2(message):
     n_rondas = 18
 
     # Step 4: Process message in 16-byte blocks
-    for i in range(len(mensaje_bytes) // tamaño_bloque):
+    for i in range(len(mensaje_bytes) / tamaño_bloque):
         for j in range(tamaño_bloque):
-            X[tamaño_bloque + j] = mensaje_bytes[i * tamaño_bloque + j]
-            X[tamaño_bloque * 2 + j] = X[tamaño_bloque + j] ^ X[j]
+            X[tamaño_bloque + j] = mensaje_bytes[tamaño_bloque * i  + j]
+            X[2 * tamaño_bloque + j] = X[tamaño_bloque + j] ^ X[j]
         t = 0
         for j in range(n_rondas):
             for k in range(tamaño_buffer):
-                t = X[k] = X[k] ^ S[t]
+                t = X[k] ^ S[t]
+                X[k] = t
             t = (t + j) % len(S) #Mod 256
         
     # Se devuelve el hash MD2 como una cadena de texto hexadecimal.
