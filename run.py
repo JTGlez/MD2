@@ -21,6 +21,8 @@ S = [
  166, 119, 114, 248, 235, 117, 75, 10, 49, 68, 80, 180, 143, 237,
  31, 26, 219, 153, 141, 51, 159, 17, 131, 20 ];
 
+import binascii
+
 def md2(message):
     "Implementa el algoritmo MD2 en Python"
     # Paso 1: obtener el padding.
@@ -31,15 +33,14 @@ def md2(message):
     mensaje_bytes += bytearray(relleno for _ in range(relleno)) #Añadimos el padding a los bytes del mensaje.
 
     # Step 2: Agregar el checksum
-    checksum_anterior = 0  
+    L = 0
     checksum = bytearray(0 for _ in range(tamaño_bloque)) #Clear
     
-    L = 0
-
     for i in range(len(mensaje_bytes) // tamaño_bloque):
         for j in range(tamaño_bloque):
-            c = mensaje_bytes[i * tamaño_bloque +j]
-            L = checksum[j] = S[c ^ L]
+            c = mensaje_bytes[i * tamaño_bloque + j]
+            checksum[j] = S[c ^ L]
+            L = checksum[j]
         mensaje_bytes += checksum
 
     # Paso 3: Inicializar el buffer
@@ -47,7 +48,7 @@ def md2(message):
     X = bytearray([0 for _ in range(tamaño_buffer)])
     n_rondas = 18
 
-    # Step 4: Process message in 16-byte blockss
+    # Step 4: Process message in 16-byte blocks
     for i in range(len(mensaje_bytes) // tamaño_bloque):
         for j in range(tamaño_bloque):
             X[tamaño_bloque + j] = mensaje_bytes[i * tamaño_bloque + j]
